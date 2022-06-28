@@ -25,3 +25,8 @@ pip insall instaloader
 ```
 
 ## Prewiew
+![1](./Screenshot/Screenshot_1.png)
+
+![1](./Screenshot/Screenshot_2.png)
+
+![1](./Screenshot/Screenshot_3.png)
