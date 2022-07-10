@@ -40,6 +40,12 @@ pip insall instaloader
 pip insall argparse 
 ```
 
+For Gui:
+- tkinter
+```
+pip insall tk
+```
+
 ## Prewiew
 ![1](./Screenshot/Screenshot_1.png)
 
