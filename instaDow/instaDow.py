@@ -135,6 +135,7 @@ def insta_login():
     print("""{}
              [#] 1. Instagram Post Downloader (Profili privati)
              [#] 2. Instagram Stories Downloader
+             [#] 3. Instagram Saved Post Downloader
     """.format(fw))
     choose = input("\nSeleziona Opzione => ")
     if choose == '1':
@@ -150,6 +151,12 @@ def insta_login():
             il.download_stories(userids=[il.check_profile_id(USERNAME)])
         except:
             print("{}Non è stato possibile scaricare le storie, se il profilo è privato effettua il login".format(fr) + "{}".format(fw))
+        ripeti_programma()
+    elif choose == '3':
+        try:
+            il.download_saved_posts()
+        except:
+            print("{}Non è stato possibile scaricare i post salvati, riprova".format(fr) + "{}".format(fw))
         ripeti_programma()
     else:
         print("{}\n[#] Opzione non disponibile".format(fr) + "{} ".format(fw))    

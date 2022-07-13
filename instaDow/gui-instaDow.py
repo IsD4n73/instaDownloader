@@ -6,7 +6,6 @@ from tkinter.messagebox import showinfo
 from instaloader import *
 from time import sleep
 
-
 # root window
 root = tk.Tk()
 root.geometry("300x450")
@@ -43,7 +42,12 @@ def login_clicked():
     PASSWORD = password.get()
     
     try:
-        il.login(USER, PASSWORD)
+        try:
+            il.load_session_from_file(USER)
+        except FileNotFoundError:
+            il.login(USER, PASSWORD)
+            il.save_session_to_file()
+        
 
         logged = tk.Toplevel(root)
         logged.geometry("300x450")
@@ -52,7 +56,7 @@ def login_clicked():
         logged.iconbitmap('./asset/icon.ico')
 
         # Sign in frame
-        login = ttk.Frame(root)
+        login = ttk.Frame(logged)
         login.pack(padx=10, pady=10, fill='x', expand=True)
 
         # user
@@ -68,14 +72,28 @@ def login_clicked():
         post_btn.pack(fill='x', expand=True, pady=10)
 
         # profile pic
-        stories_button = ttk.Button(signin, text="Download Profile Stories", command=stories)
+        stories_button = ttk.Button(login, text="Download Profile Stories", command=stories)
         stories_button.pack(fill='x', expand=True, pady=10)
+
+        # saved posts
+        saved_button = ttk.Button(login, text="Download Saved Post", command=saved_post)
+        saved_button.pack(fill='x', expand=True, pady=10)
     except:
         showinfo(
             title='Login Error',
             message="Login non riuscito, riprova"
         )
-    
+
+
+# saved post
+def saved_post():
+    try:
+        il.download_saved_posts(max_count=None, fast_update=False, post_filter=None)
+    except LoginRequiredException:
+        showinfo(
+            title='Errore',
+            message="Non è stato possibile scaricare i post salvati..."
+        )
 
 # profile post
 def insta_post_prv():
@@ -230,7 +248,7 @@ info_button.pack(fill='x', expand=True, pady=10)
 
 
 # username
-email_label = ttk.Label(signin, text="Tuo Username:")
+email_label = ttk.Label(signin, text="Email:")
 email_label.pack(fill='x', expand=True)
 
 email_entry = ttk.Entry(signin, textvariable=email)
