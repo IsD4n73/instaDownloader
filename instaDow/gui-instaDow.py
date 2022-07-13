@@ -1,17 +1,29 @@
 import tkinter as tk
-import shutil, os
+import shutil, os, sys
 from tkinter import ttk
 from tkinter.ttk import *
 from tkinter.messagebox import showinfo
 from instaloader import *
 from time import sleep
 
+def resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    try:
+        # PyInstaller creates a temp folder and stores path in _MEIPASS
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
+
+
+
 # root window
 root = tk.Tk()
 root.geometry("300x450")
 root.resizable(False, False)
 root.title('D4n73 Downloader')
-root.iconbitmap('./asset/icon.ico')
+root.iconbitmap(resource_path('./asset/icon.ico'))
 
 # store thing
 email = tk.StringVar()
@@ -36,6 +48,7 @@ def remove_file(user):
 
 
 
+
 # login 
 def login_clicked():
     USER = email.get()
@@ -53,7 +66,7 @@ def login_clicked():
         logged.geometry("300x450")
         logged.resizable(False, False)
         logged.title('D4n73 Downloader - Logged')
-        logged.iconbitmap('./asset/icon.ico')
+        logged.iconbitmap(resource_path('./asset/icon.ico'))
 
         # Sign in frame
         login = ttk.Frame(logged)
