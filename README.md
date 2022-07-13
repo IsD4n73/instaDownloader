@@ -4,10 +4,11 @@ Instagram posts and profile picture downloader in python
 ## Features
 - Bulk post downloaer
 - Profile picture download
-- Login for download post from private accounts
+- Login for download post from private accounts (require login)
 - Download stories (require login)
 - Create zip archive with downloaded post
 - Check if the profile is public or private
+- Download saved post (require login)
 - Command line usage
 
 ## Usage
@@ -56,3 +57,7 @@ pip insall tk
 ![4](./Screenshot/Screenshot_4.png)
 
 ![5](./Screenshot/Screenshot_5.png)
+
+![6](./Screenshot/Screenshot_6.png)
+
+![7](./Screenshot/Screenshot_7.png)
