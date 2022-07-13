@@ -29,7 +29,7 @@ Execute the instaDow.py file and select the option:
 ## Usage (Command Line)
  `instaDow.py --azione 5 --username ladygaga` or `instaDow.py --a 5 --u ladygaga`
  
- This performs step 5 (Check profile) on the username ladygaga
+ This performs **step 5** (Check profile) on the username **ladygaga**
 
 ## Requirements
 - instaloader
