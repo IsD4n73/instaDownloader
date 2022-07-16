@@ -16,11 +16,12 @@ def resource_path(relative_path):
 
     return os.path.join(base_path, relative_path)
 
+# sageho8493@satedly.com
 
 
 # root window
 root = tk.Tk()
-root.geometry("300x450")
+root.geometry("300x470")
 root.resizable(False, False)
 root.title('D4n73 Downloader')
 root.iconbitmap(resource_path('./asset/icon.ico'))
@@ -29,6 +30,7 @@ root.iconbitmap(resource_path('./asset/icon.ico'))
 email = tk.StringVar()
 password = tk.StringVar()
 username = tk.StringVar()
+post_count = tk.IntVar()
 
 # instaloader
 il = instaloader.Instaloader()
@@ -45,6 +47,67 @@ def remove_file(user):
             os.remove(os.path.join(dir, item))
         if item.endswith("id"):
             os.remove(os.path.join(dir, item))
+    
+    dir = f"./：stories/"
+    test = os.listdir(dir)
+
+    for item in test:
+        if item.endswith(".xz"):
+            os.remove(os.path.join(dir, item))
+        if item.endswith(".txt"):
+            os.remove(os.path.join(dir, item))
+        if item.endswith("id"):
+            os.remove(os.path.join(dir, item))
+        if item.endswith(".webp"):
+            os.remove(os.path.join(dir, item))
+            
+    
+
+
+    
+
+# saved post
+def saved_post():
+    try:
+        il.load_session_from_file(email.get())
+        il.download_saved_posts(fast_update=False)
+    except:
+        showinfo(
+            title='Errore',
+            message="Non è stato possibile scaricare i post salvati..."
+        )
+
+# profile post
+def insta_post_prv():
+    USERNAME = username.get()
+    msg = "I post sono stati scaricati correttamente!"
+    il.load_session_from_file(email.get())
+    try:
+        for post in Profile.from_username(il.context, USERNAME).get_posts():
+            il.download_post(post,USERNAME)
+    except:
+        msg = "C'è stato un errore nello scaricare i post. Riprova"
+    remove_file(USERNAME)
+    showinfo(
+        title='Private Profile - Post',
+        message=msg
+    )
+
+
+# stories
+def stories():
+    USERNAME = username.get()
+    il.load_session_from_file(email.get())
+    msg = "Le storie sono state scaricate correttamente!"
+    try:
+        il.download_stories(userids=[il.check_profile_id(USERNAME)])
+    except:
+        msg = "Non è stato possibile scaricare le storie, riprova"
+    remove_file(USERNAME)
+    showinfo(
+        title='Private Profile - Stories',
+        message=msg
+    )
 
 
 
@@ -91,6 +154,10 @@ def login_clicked():
         # saved posts
         saved_button = ttk.Button(login, text="Download Saved Post", command=saved_post)
         saved_button.pack(fill='x', expand=True, pady=10)
+
+        # liked posts
+        liked_button = ttk.Button(login, text="Download Liked Post", command=liked_post)
+        liked_button.pack(fill='x', expand=True, pady=10)
     except:
         showinfo(
             title='Login Error',
@@ -98,45 +165,47 @@ def login_clicked():
         )
 
 
-# saved post
-def saved_post():
-    try:
-        il.download_saved_posts(max_count=None, fast_update=False, post_filter=None)
-    except LoginRequiredException:
-        showinfo(
-            title='Errore',
-            message="Non è stato possibile scaricare i post salvati..."
-        )
+# liked post download
+def liked_post():
 
-# profile post
-def insta_post_prv():
-    USERNAME = username.get()
-    msg = "I post sono stati scaricati correttamente!"
-    try:
-        for post in Profile.from_username(il.context, USERNAME).get_posts():
-            il.download_post(post,USERNAME)
-    except:
-        msg = "C'è stato un errore nello scaricare i post. Riprova"
-    remove_file(USERNAME)
-    showinfo(
-        title='Private Profile - Post',
-        message=msg
-    )
+    # download x liked post
+    def dow_post():
+        il.load_session_from_file(email.get())
+        try:
+            il.download_feed_posts(max_count=post_count.get(), fast_update=True,
+                            post_filter=lambda post: post.viewer_has_liked)
+        except:
+            showinfo(
+                title='Liked Error',
+                message="Non è stato possibile scaricare i post salvati..."
+            )
 
+    liked = tk.Toplevel(root)
+    liked.geometry("290x250")
+    liked.resizable(False, False)
+    liked.title('D4n73 Downloader - Liked')
+    liked.iconbitmap(resource_path('./asset/icon.ico'))
 
-# stories
-def stories():
-    USERNAME = username.get()
-    msg = "Le storie sono state scaricate correttamente!"
-    try:
-        il.download_stories(userids=[il.check_profile_id(USERNAME)])
-    except:
-        msg = "Non è stato possibile scaricare le storie, riprova"
-    remove_file(USERNAME)
-    showinfo(
-        title='Private Profile - Stories',
-        message=msg
-    )
+    # Liked frame
+    like = ttk.Frame(liked)
+    like.pack(padx=10, pady=10, fill='x', expand=True)
+
+    # download liked label
+    post_labe = ttk.Label(like, text="Max Post Da Scaricare:")
+    post_labe.pack(fill='x', expand=True)
+
+    # download liked input
+    post_entri = ttk.Entry(like, textvariable=post_count)
+    post_entri.pack(fill='x', expand=True)
+    post_entri.focus()
+    
+    # download liked button
+    like_button = ttk.Button(like, text="Download", command=dow_post)
+    like_button.pack(fill='x', expand=True, pady=5)
+    
+    
+    
+
 
 # info function
 def get_info():
@@ -212,6 +281,7 @@ def insta_post():
         message=msg
     )
 
+# profile pic
 def propic():
     USERNAME = username.get()
     msg = "La foto profilo è stata scaricata correttamente!"
@@ -224,11 +294,55 @@ def propic():
         title='Profile Picture Download',
         message=msg
     )
+
+# help button
+def help_clicked():
+    showinfo(
+        title='Spiegazione App',
+        message="""Username Account -- Username dell account instagram su cui vuoi eseguire l'operazione
+
+Download Post -- Scarica tutti i post da profili pubblici
+
+Downoad Profile Picture -- Scarica la foto profilo di un account
+
+Create ZIP -- Crea un archivio zip della cartella contentente i media
+
+Private Account -- Controlla se l'username ha un profilo pubblico/privato
+
+Get Account Info -- Controlla tutte le informazioni di un account
+
+Email & Password -- Credenziali per effettuare il login ed eseguire operazioni extra
+
+Login -- Da l'accesso ad operazioni come:
+        > Download Post -- Scarica post da un account privato
+
+        > Download Profile Stories -- Scarica le storie di un account
+
+        > Download Saved Post -- Scarica i post salvati dell'account che ha effettuato il login
+
+        > 
+        """
+    )
+
+
+
+
+
 ##############################################################################
 
 # Sign in frame
 signin = ttk.Frame(root)
 signin.pack(padx=10, pady=10, fill='x', expand=True)
+
+#style
+style = ttk.Style(root)
+#style.theme_use('xpnative')
+print(style.theme_names())
+style.configure('Title.TLabel', background= 'red')
+
+
+title_label = ttk.Label(signin, text="D4n73 Downloader", style= 'Title.TLabel')
+title_label.pack(anchor="center", expand=True)
 
 # user
 user_label = ttk.Label(signin, text="Username Account:")
@@ -279,8 +393,9 @@ password_entry.pack(fill='x', expand=True)
 login_button = ttk.Button(signin, text="Login", command=login_clicked)
 login_button.pack(fill='x', expand=True, pady=10)
 
-
-
+# help button
+help_button = ttk.Button(signin, text="Aiuto", command=help_clicked)
+help_button.pack(fill='x', expand=True, pady=5)
 
 
 root.mainloop()

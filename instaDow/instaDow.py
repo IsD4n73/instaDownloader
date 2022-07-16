@@ -136,6 +136,7 @@ def insta_login():
              [#] 1. Instagram Post Downloader (Profili privati)
              [#] 2. Instagram Stories Downloader
              [#] 3. Instagram Saved Post Downloader
+             [#] 4. Instagram Liked Post Downloader
     """.format(fw))
     choose = input("\nSeleziona Opzione => ")
     if choose == '1':
@@ -158,6 +159,10 @@ def insta_login():
         except:
             print("{}Non è stato possibile scaricare i post salvati, riprova".format(fr) + "{}".format(fw))
         ripeti_programma()
+    elif choose == '4':
+        post_count = input("[#] Quanti post vuoi scaricare ==> ")
+        il.download_feed_posts(max_count=post_count, fast_update=True,
+                            post_filter=lambda post: post.viewer_has_liked)
     else:
         print("{}\n[#] Opzione non disponibile".format(fr) + "{} ".format(fw))    
         ripeti_programma()
