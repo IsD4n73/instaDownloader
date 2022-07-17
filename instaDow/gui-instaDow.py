@@ -392,6 +392,8 @@ Email & Password -- Credenziali per effettuare il login ed eseguire operazioni e
 Login -- Da l'accesso ad operazioni come:
         > Download Post -- Scarica post da un account privato
 
+        > Download Single Post -- Scarica post singolo da un account
+
         > Download Profile Stories -- Scarica le storie di un account
 
         > Download Saved Post -- Scarica i post salvati dell'account che ha effettuato il login
