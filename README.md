@@ -3,8 +3,9 @@ Instagram posts and profile picture downloader in python
 
 ## Features
 - Bulk post downloaer
+- Single post downloader (from url) 
 - Profile picture download
-- Login for download post from private accounts (require login)
+- Download post from private accounts (require login)
 - Download stories (require login)
 - Create zip archive with downloaded post
 - Check if the profile is public or private
@@ -26,6 +27,8 @@ Execute the instaDow.py file and select the option:
 `5. -- Check profile`
 
 `6. -- Get profile info from username`
+
+`7. -- Download single post from url`
 
 ## Usage (Command Line)
  `instaDow.py --azione 5 --username ladygaga` or `instaDow.py --a 5 --u ladygaga`
