@@ -64,6 +64,8 @@ pip insall tk
 
 ---
 
+<p align="center">GUI Version</p>
+
 ![6](./Screenshot/Screenshot_6.png)
 
 ![7](./Screenshot/Screenshot_7.png)
