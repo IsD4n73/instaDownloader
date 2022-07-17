@@ -9,6 +9,7 @@ Instagram posts and profile picture downloader in python
 - Create zip archive with downloaded post
 - Check if the profile is public or private
 - Download saved post (require login)
+- Download liked post (require login)
 - Command line usage
 
 ## Usage
