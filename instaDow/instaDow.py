@@ -1,8 +1,10 @@
 from ast import Pass
+from ctypes.wintypes import SHORT
 from instaloader import *
 from getpass import getpass
 from time import sleep
 from colorama import init, Fore, Back, Style
+from urllib.parse import urlparse
 import shutil
 import os
 import argparse
@@ -12,6 +14,7 @@ init()
 fr  =   Fore.RED                                                                                     
 fw  =   Fore.WHITE                                          
 fg  =   Fore.GREEN
+il = instaloader.Instaloader()
 #############################################################################################
 
 def ripeti_programma():
@@ -24,6 +27,32 @@ def ripeti_programma():
         elif scelta in ('n', 'no', 'NO', 'N'): 
             input("\nClicca un tasto per chiudere il programma...")
             break
+
+#############################################################################################
+
+def ig_shortcode(url):
+    path = urlparse(url).path 
+    path = path[1:] 
+    path = path.replace("p/", "")
+    path = path.replace("/", "")
+    return path
+
+#############################################################################################
+
+def single_post(url, user):
+    SHORTCODE = ig_shortcode(url)
+    
+    print("\nSHORTCODE: " + SHORTCODE)
+    
+    try:
+        post = Post.from_shortcode(il.context, SHORTCODE)
+        profilo = Profile.from_username(il.context, user)
+        
+        il.download_post(post, target=profilo.username)
+    except:
+        print("{}[#] C'è stato un errore nello scaricare i post. Riprova".format(fr) + "{}".format(fw))
+    remove_file(user)
+    ripeti_programma()
 
 #############################################################################################
 
@@ -56,7 +85,7 @@ def crea_zip(user):
 #############################################################################################
 
 def insta_post(USERNAME):
-    il = instaloader.Instaloader()
+    
 
     try:
         for post in Profile.from_username(il.context, USERNAME).get_posts():
@@ -69,7 +98,7 @@ def insta_post(USERNAME):
 #############################################################################################
 
 def insta_propic(USERNAME):
-    il = instaloader.Instaloader()
+    
     try:
         il.download_profile(USERNAME,profile_pic_only=True)
     except:
@@ -80,7 +109,7 @@ def insta_propic(USERNAME):
 #############################################################################################
 
 def profile_infos(USERNAME):
-    il = instaloader.Instaloader()
+    
     try:
         profile = Profile.from_username(il.context, USERNAME)
         print("\n{}           Informazioni ".format(fw) + "{}".format(fg) +f"{USERNAME}\n" + "{}".format(fw))
@@ -106,7 +135,7 @@ def profile_infos(USERNAME):
 #############################################################################################
 
 def e_privato(USERNAME):
-    il = instaloader.Instaloader()  
+      
     try:
         profilo = Profile.from_username(il.context, USERNAME).is_private
         if profilo == True:
@@ -120,9 +149,9 @@ def e_privato(USERNAME):
 #############################################################################################
 
 def insta_login():
-    il = instaloader.Instaloader()
+    
     print("{}".format(fw))
-    USER = input("Inserisci il tuo username: ")
+    USER = input("Inserisci la tua email: ")
     print("[#] Inserisci la tua password: ")
     PASSWORD = getpass()
 
@@ -137,6 +166,7 @@ def insta_login():
              [#] 2. Instagram Stories Downloader
              [#] 3. Instagram Saved Post Downloader
              [#] 4. Instagram Liked Post Downloader
+             [#] 5. Instagram Single Post Downloader
     """.format(fw))
     choose = input("\nSeleziona Opzione => ")
     if choose == '1':
@@ -163,6 +193,8 @@ def insta_login():
         post_count = input("[#] Quanti post vuoi scaricare ==> ")
         il.download_feed_posts(max_count=post_count, fast_update=True,
                             post_filter=lambda post: post.viewer_has_liked)
+    elif choose == '5':
+        single_post(input("[#] Inserisci l'URL del post ==> "), USERNAME)
     else:
         print("{}\n[#] Opzione non disponibile".format(fr) + "{} ".format(fw))    
         ripeti_programma()
@@ -238,7 +270,7 @@ def banner():
         insta_login()
     elif choose == '4':
         print("{}".format(fw))
-        u = input("Inserisci l' username (nome Cartella): ")
+        u = input("[#] Inserisci l' username (nome Cartella) ==> ")
         crea_zip(u)
     elif choose == '5':
         e_privato(prendi_username())
