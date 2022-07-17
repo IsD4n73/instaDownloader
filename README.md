@@ -41,7 +41,7 @@ pip insall instaloader
 pip insall argparse 
 ```
 
-For Gui:
+For Gui Version:
 - tkinter
 ```
 pip insall tk
@@ -63,3 +63,5 @@ pip insall tk
 ![6](./Screenshot/Screenshot_6.png)
 
 ![7](./Screenshot/Screenshot_7.png)
+
+![8](./Screenshot/Screenshot_8.png)

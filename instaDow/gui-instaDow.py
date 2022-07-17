@@ -16,7 +16,6 @@ def resource_path(relative_path):
 
     return os.path.join(base_path, relative_path)
 
-# sageho8493@satedly.com
 
 
 # root window
