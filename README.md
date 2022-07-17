@@ -1,5 +1,5 @@
 # instaDownloader
-Instagram posts and profile picture downloader in python
+Instagram posts, stories, saved/liked posts and profile picture downloader in python
 
 ## Features
 - Bulk post downloaer
