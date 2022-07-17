@@ -67,6 +67,18 @@ def remove_file(user):
             os.remove(os.path.join(dir, item))
         if item.endswith("id"):
             os.remove(os.path.join(dir, item))
+    dir = f"./：stories/"
+    test = os.listdir(dir)
+
+    for item in test:
+        if item.endswith(".xz"):
+            os.remove(os.path.join(dir, item))
+        if item.endswith(".txt"):
+            os.remove(os.path.join(dir, item))
+        if item.endswith("id"):
+            os.remove(os.path.join(dir, item))
+        if item.endswith(".webp"):
+            os.remove(os.path.join(dir, item))
 
 #############################################################################################
 

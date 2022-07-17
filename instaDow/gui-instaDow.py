@@ -5,6 +5,7 @@ from tkinter.ttk import *
 from tkinter.messagebox import showinfo
 from instaloader import *
 from time import sleep
+from urllib.parse import urlparse
 
 def resource_path(relative_path):
     """ Get absolute path to resource, works for dev and for PyInstaller """
@@ -29,6 +30,8 @@ root.iconbitmap(resource_path('./asset/icon.ico'))
 email = tk.StringVar()
 password = tk.StringVar()
 username = tk.StringVar()
+username_single = tk.StringVar()
+link_single = tk.StringVar()
 post_count = tk.IntVar()
 
 # instaloader
@@ -60,8 +63,14 @@ def remove_file(user):
         if item.endswith(".webp"):
             os.remove(os.path.join(dir, item))
             
-    
 
+# get shortcode from url 
+def ig_shortcode(url):
+    path = urlparse(url).path 
+    path = path[1:] 
+    path = path.replace("p/", "")
+    path = path.replace("/", "")
+    return path
 
     
 
@@ -75,6 +84,7 @@ def saved_post():
             title='Errore',
             message="Non è stato possibile scaricare i post salvati..."
         )
+
 
 # profile post
 def insta_post_prv():
@@ -134,6 +144,10 @@ def login_clicked():
         login = ttk.Frame(logged)
         login.pack(padx=10, pady=10, fill='x', expand=True)
 
+        # window title
+        ltitle_label = ttk.Label(login, text="Logged In", style= 'Title.TLabel')
+        ltitle_label.pack(anchor="center", expand=True)
+
         # user
         user_labe = ttk.Label(login, text="Username Account:")
         user_labe.pack(fill='x', expand=True)
@@ -145,6 +159,10 @@ def login_clicked():
         # post download
         post_btn = ttk.Button(login, text="Download Post", command=insta_post_prv)
         post_btn.pack(fill='x', expand=True, pady=10)
+        
+        # post download
+        spost_btn = ttk.Button(login, text="Download Single Post", command=single_post)
+        spost_btn.pack(fill='x', expand=True, pady=10)
 
         # profile pic
         stories_button = ttk.Button(login, text="Download Profile Stories", command=stories)
@@ -162,6 +180,63 @@ def login_clicked():
             title='Login Error',
             message="Login non riuscito, riprova"
         )
+
+
+#single post 
+def single_post():
+    
+    #scarica post singolo
+    def dow_singel_post():
+        SHORTCODE = ig_shortcode(link_single)
+        user = username_single
+        try:
+            post = Post.from_shortcode(il.context, SHORTCODE)
+            profilo = Profile.from_username(il.context, user)
+            
+            il.download_post(post, target=profilo.username)
+            remove_file(user)
+        except:
+            showinfo(
+                title='Post Error',
+                message="Non è stato possibile scaricare il post.\n\nRiprova..."
+            )
+
+    post = tk.Toplevel(root)
+    post.geometry("290x250")
+    post.resizable(False, False)
+    post.title('D4n73 Downloader - Post')
+    post.iconbitmap(resource_path('./asset/icon.ico'))
+
+    # Post frame
+    spost = ttk.Frame(post)
+    spost.pack(padx=10, pady=10, fill='x', expand=True)
+
+    # window title
+    stitle_label = ttk.Label(spost, text="Single Post Downloader", style= 'Title.TLabel')
+    stitle_label.pack(anchor="center", expand=True)
+
+    # username single post label
+    spostuser_labe = ttk.Label(spost, text="Username dell'account:")
+    spostuser_labe.pack(fill='x', expand=True)
+
+    # username single post input
+    spost_user_entri = ttk.Entry(spost, textvariable=username_single)
+    spost_user_entri.pack(fill='x', expand=True)
+    spost_user_entri.focus()
+
+    # link single post label
+    spostlink_labe = ttk.Label(spost, text="Link del post:")
+    spostlink_labe.pack(fill='x', expand=True)
+
+    # link single post input
+    spost_link_entri = ttk.Entry(spost, textvariable=link_single)
+    spost_link_entri.pack(fill='x', expand=True)
+
+    # download liked button
+    spost_button = ttk.Button(spost, text="Download", command=dow_singel_post)
+    spost_button.pack(fill='x', expand=True, pady=5)
+
+   
 
 
 # liked post download
@@ -188,7 +263,9 @@ def liked_post():
     # Liked frame
     like = ttk.Frame(liked)
     like.pack(padx=10, pady=10, fill='x', expand=True)
-
+    
+    liktitle_label = ttk.Label(like, text="Liked Post", style= 'Title.TLabel')
+    liktitle_label.pack(anchor="center", expand=True)
     # download liked label
     post_labe = ttk.Label(like, text="Max Post Da Scaricare:")
     post_labe.pack(fill='x', expand=True)
