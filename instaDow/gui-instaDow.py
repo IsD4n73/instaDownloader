@@ -20,8 +20,8 @@ def resource_path(relative_path):
 
 # root window
 root = tk.Tk()
-root.geometry("300x470")
-root.resizable(False, False)
+root.geometry("300x500")
+#root.resizable(False, False)
 root.title('D4n73 Downloader')
 root.iconbitmap(resource_path('./asset/icon.ico'))
 
@@ -126,7 +126,7 @@ def login_clicked():
 
         logged = tk.Toplevel(root)
         logged.geometry("300x450")
-        logged.resizable(False, False)
+        #logged.resizable(False, False)
         logged.title('D4n73 Downloader - Logged')
         logged.iconbitmap(resource_path('./asset/icon.ico'))
 
@@ -319,7 +319,7 @@ Login -- Da l'accesso ad operazioni come:
 
         > Download Saved Post -- Scarica i post salvati dell'account che ha effettuato il login
 
-        > 
+        > Download Liked Post -- Scarica i post a cui hai messo mi piace
         """
     )
 
@@ -337,7 +337,7 @@ signin.pack(padx=10, pady=10, fill='x', expand=True)
 style = ttk.Style(root)
 #style.theme_use('xpnative')
 print(style.theme_names())
-style.configure('Title.TLabel', background= 'red')
+style.configure('Title.TLabel', font=("Monospace", 15))
 
 
 title_label = ttk.Label(signin, text="D4n73 Downloader", style= 'Title.TLabel')
@@ -372,6 +372,11 @@ info_button = ttk.Button(signin, text="Get Account Info", command=get_info)
 info_button.pack(fill='x', expand=True, pady=10)
 
 
+
+
+# login label
+login_label = ttk.Label(signin, text="Login", style= 'Title.TLabel')
+login_label.pack(anchor="center", expand=True)
 
 # username
 email_label = ttk.Label(signin, text="Email:")
