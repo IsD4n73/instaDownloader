@@ -39,6 +39,16 @@ def ig_shortcode(url):
 
 #############################################################################################
 
+def url_to_user(url):
+    path = url
+    if "www.instagram.com" in url:
+        path = urlparse(url).path 
+        path = path[1:] 
+        path = path.replace("/", "")
+    return path
+
+#############################################################################################
+
 def single_post(url, user):
     SHORTCODE = ig_shortcode(url)
     
@@ -167,7 +177,7 @@ def insta_login():
     print("[#] Inserisci la tua password: ")
     PASSWORD = getpass()
 
-    USERNAME = input("\n[#] Inserisci l'username dell'account => ")
+    USERNAME = prendi_username()
     try:
         il.login(USER, PASSWORD)
     except:
@@ -240,7 +250,7 @@ def uso():
 
 def prendi_username():
     username = input("\n[#] Inserisci l'username dell'account su cui vuoi effettuare l'operazione => ")
-    return username
+    return url_to_user(username)
 
 #############################################################################################
 
