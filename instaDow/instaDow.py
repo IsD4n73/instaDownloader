@@ -41,11 +41,13 @@ def ig_shortcode(url):
 
 def url_to_user(url):
     path = url
-    if "www.instagram.com" in url:
+    if "instagram.com" in url:
         path = urlparse(url).path 
         path = path[1:] 
         path = path.replace("/", "")
+        path = path.split("?", 1)[0]
     return path
+
 
 #############################################################################################
 
