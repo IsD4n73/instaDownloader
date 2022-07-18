@@ -12,6 +12,7 @@ Instagram posts, stories, saved/liked posts and profile picture downloader in py
 - Download saved post (require login)
 - Download liked post (require login)
 - Command line usage
+- Automatic conversion from URL to username 
 
 ## Usage
 Execute the instaDow.py file and select the option:
