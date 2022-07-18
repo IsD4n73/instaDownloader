@@ -72,7 +72,15 @@ def ig_shortcode(url):
     path = path.replace("/", "")
     return path
 
-    
+def url_to_user(url):
+    path = url
+    if "instagram.com" in url:
+        path = urlparse(url).path 
+        path = path[1:] 
+        path = path.replace("/", "")
+        path = path.split("?", 1)[0]
+        print("Username: " + path + "\n\n")
+    return path    
 
 # saved post
 def saved_post():
@@ -88,7 +96,7 @@ def saved_post():
 
 # profile post
 def insta_post_prv():
-    USERNAME = username.get()
+    USERNAME = url_to_user(username.get())
     msg = "I post sono stati scaricati correttamente!"
     il.load_session_from_file(email.get())
     try:
@@ -105,7 +113,7 @@ def insta_post_prv():
 
 # stories
 def stories():
-    USERNAME = username.get()
+    USERNAME = url_to_user(username.get())
     il.load_session_from_file(email.get())
     msg = "Le storie sono state scaricate correttamente!"
     try:
@@ -285,7 +293,7 @@ def liked_post():
 
 # info function
 def get_info():
-    USERNAME = username.get()
+    USERNAME = url_to_user(username.get())
     try:
         profile = Profile.from_username(il.context, USERNAME)
         msg = f"\n           Informazioni {USERNAME}\n" + f"\nUser ID: {profile.userid}"
@@ -309,7 +317,7 @@ def get_info():
 
 # private
 def get_priv():
-    USERNAME = username.get()
+    USERNAME = url_to_user(username.get())
     try:
         profilo = Profile.from_username(il.context, USERNAME).is_private
         if profilo == True:
@@ -326,7 +334,7 @@ def get_priv():
 
 # create zip
 def get_zip():
-    user = username.get()
+    user = url_to_user(username.get())
     shutil.make_archive(f"{user}", 'zip', f"./{user}/")
     
     sleep(0.8)
@@ -344,7 +352,7 @@ def get_zip():
 
 # post 
 def insta_post():
-    USERNAME = username.get()
+    USERNAME = url_to_user(username.get())
     try:
         for post in Profile.from_username(il.context, USERNAME).get_posts():
             il.download_post(post,USERNAME)
@@ -359,7 +367,7 @@ def insta_post():
 
 # profile pic
 def propic():
-    USERNAME = username.get()
+    USERNAME = url_to_user(username.get())
     msg = "La foto profilo è stata scaricata correttamente!"
     try:
         il.download_profile(USERNAME,profile_pic_only=True)
