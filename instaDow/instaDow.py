@@ -190,14 +190,16 @@ def insta_login():
 
     fa_two = None
     fa_two = input("Devi inserire il codice per il 2FA? (s/n) ")
-
-    USERNAME = prendi_username()
     try:
         il.login(USER, PASSWORD)
-        if fa_two in ('y', 'yes', 's', 'si', 'Y', 'S', 'SI', 'YES'):
-            il.two_factor_login(input("[#] Codice login 2FA ==> "))
     except:
-        print("{}[#] Non siamo riusciti a connetterci al tuo account, prova a verificare che le credenziali sono corrette e ripova.".format(fr) + "{}".format(fw))
+        if fa_two in ('y', 'yes', 's', 'si', 'Y', 'S', 'SI', 'YES'):
+            try:    
+                il.two_factor_login(input("[#] Codice login 2FA ==> "))
+            except:
+                print("{}[#] Non siamo riusciti a connetterci al tuo account, prova a verificare che le credenziali sono corrette e ripova.".format(fr) + "{}".format(fw))
+    
+    USERNAME = prendi_username()
     
     print("""{}
              [#] 1. Instagram Post Downloader (Profili privati)
