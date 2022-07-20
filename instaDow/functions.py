@@ -79,5 +79,18 @@ Login -- Da l'accesso ad operazioni come:
         > Download Saved Post -- Scarica i post salvati dell'account che ha effettuato il login
 
         > Download Liked Post -- Scarica i post a cui hai messo mi piace
+
+        > Download Highlight -- Scarica le storie in evidenza di un utente
         """
     )
+
+
+def resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    try:
+        # PyInstaller creates a temp folder and stores path in _MEIPASS
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)

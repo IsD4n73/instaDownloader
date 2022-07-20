@@ -11,8 +11,9 @@ Instagram posts, stories, saved/liked posts and profile picture downloader in py
 - Check if the profile is public or private
 - Download saved post (require login)
 - Download liked post (require login)
+- Download highlight (require login)
 - Command line usage
-- Automatic conversion from URL to username 
+- Automatic conversion from URL to username
 
 ## Usage
 Execute the instaDow.py file and select the option:

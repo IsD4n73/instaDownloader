@@ -8,15 +8,6 @@ from time import sleep
 from urllib.parse import urlparse
 from functions import *
 
-def resource_path(relative_path):
-    """ Get absolute path to resource, works for dev and for PyInstaller """
-    try:
-        # PyInstaller creates a temp folder and stores path in _MEIPASS
-        base_path = sys._MEIPASS
-    except Exception:
-        base_path = os.path.abspath(".")
-
-    return os.path.join(base_path, relative_path)
 
 
 
@@ -94,7 +85,20 @@ def stories():
         message=msg
     )
 
-
+# scarica evidenza highlight
+def scarica_highlight():
+    USERNAME = url_to_user(username.get())
+    try: 
+        profile = Profile.from_username(il.context, USERNAME)
+        for highlight in il.get_highlights(profile):
+            for item in highlight.get_items():
+                il.download_storyitem(item, '{}/{}'.format(highlight.owner_username, highlight.title))
+            remove_file(highlight.owner_username + "∕" + highlight.title)
+    except:
+        showinfo(
+            title='Highlight - Storie in evidenza',
+            message="Non è stato possibile scaricare le storie in evidenza."
+        )
 
 
 # login 
@@ -151,6 +155,10 @@ def login_clicked():
         # liked posts
         liked_button = ttk.Button(login, text="Download Liked Post", command=liked_post)
         liked_button.pack(fill='x', expand=True, pady=10)
+
+        # highlight downloader
+        highlight_button = ttk.Button(login, text="Download Highlight", command=scarica_highlight)
+        highlight_button.pack(fill='x', expand=True, pady=10)
     except:
         showinfo(
             title='Login Error',
