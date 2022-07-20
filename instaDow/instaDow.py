@@ -1,4 +1,3 @@
-from ast import Pass
 from ctypes.wintypes import SHORT
 from instaloader import *
 from getpass import getpass
@@ -65,6 +64,16 @@ def single_post(url, user):
         print("{}[#] C'è stato un errore nello scaricare i post. Riprova".format(fr) + "{}".format(fw))
     remove_file(user)
     ripeti_programma()
+
+#############################################################################################
+
+def scarica_evidenza(profile):
+    try:
+        for highlight in il.get_highlights(profile):
+            for item in highlight.get_items():
+                il.download_storyitem(item, '{}/{}'.format(highlight.owner_username, highlight.title))
+    except:
+        print("{}[#] C'è stato un errore nello scaricare le storie. Riprova".format(fr) + "{}".format(fw))
 
 #############################################################################################
 
@@ -191,6 +200,7 @@ def insta_login():
              [#] 3. Instagram Saved Post Downloader
              [#] 4. Instagram Liked Post Downloader
              [#] 5. Instagram Single Post Downloader
+             [#] 6. Highlight Downloader (Storie in evidenza)
     """.format(fw))
     choose = input("\nSeleziona Opzione => ")
     if choose == '1':
@@ -219,6 +229,12 @@ def insta_login():
                             post_filter=lambda post: post.viewer_has_liked)
     elif choose == '5':
         single_post(input("[#] Inserisci l'URL del post ==> "), USERNAME)
+    elif choose == '6':
+        try:
+            prof = Profile.from_username(il.context, prendi_username()) 
+        except:
+            print("{}[#] C'è stato un errore nel cercare il profilo...".format(fr) + "{}".format(fw))
+        scarica_evidenza(prof)
     else:
         print("{}\n[#] Opzione non disponibile".format(fr) + "{} ".format(fw))    
         ripeti_programma()
