@@ -31,6 +31,8 @@ Execute the instaDow.py file and select the option:
 
 `6. -- Get profile info from username`
 
+### Login 
+
 
 ## Usage (Command Line)
  `instaDow.py --azione 5 --username ladygaga` or `instaDow.py --a 5 --u ladygaga`
