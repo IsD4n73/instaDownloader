@@ -3,7 +3,7 @@ Instagram posts, stories, saved/liked posts and profile picture downloader in py
 
 ## Features
 - Bulk post downloaer
-- Single post downloader (from url) (require login)
+- Single post downloader from url (require login)
 - Profile picture download
 - Download post from private accounts (require login)
 - Download stories (require login)
@@ -12,6 +12,7 @@ Instagram posts, stories, saved/liked posts and profile picture downloader in py
 - Download saved post (require login)
 - Download liked post (require login)
 - Download highlight (require login)
+- 2FA login
 - Command line usage
 - Automatic conversion from URL to username
 
