@@ -1,5 +1,5 @@
 import tkinter as tk
-import shutil, os, sys
+import shutil, os
 from tkinter import ttk
 from tkinter.ttk import *
 from tkinter.messagebox import showinfo

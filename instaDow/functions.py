@@ -1,10 +1,6 @@
-import tkinter as tk
-import shutil, os, sys
-from tkinter import ttk
-from tkinter.ttk import *
+import os, sys
 from tkinter.messagebox import showinfo
 from instaloader import *
-from time import sleep
 from urllib.parse import urlparse
 
 ##############################################################################
