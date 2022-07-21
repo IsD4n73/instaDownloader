@@ -1,4 +1,10 @@
 # instaDownloader
+
+<p align=center>
+ <img src="https://img.shields.io/badge/Insta-Downloader-red?style=for-the-badge&logo=instagram">
+ <img src="https://img.shields.io/github/last-commit/IsD4n73/instaDownloader?style=for-the-badge">
+</p>
+
 Instagram posts, stories, highlight, saved/liked posts and profile picture downloader in python
 
 ## Features
