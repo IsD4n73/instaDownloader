@@ -38,6 +38,19 @@ Execute the instaDow.py file and select the option:
 `6. -- Get profile info from username`
 
 ### Login 
+With logged account tou can acces this options:
+
+`1. -- Download post from private profile`
+
+`2. -- Download stories`
+
+`3. -- Download saved posts`
+
+`4. -- Download liked post`
+
+`5. -- Download single post`
+
+`6. -- Download highlight stories`
 
 
 ## Usage (Command Line)
