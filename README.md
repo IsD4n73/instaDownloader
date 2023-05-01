@@ -8,16 +8,16 @@
 Instagram posts, stories, highlight, saved/liked posts and profile picture downloader in python
 
 ## Features
-- Bulk post downloaer
-- Single post downloader from url (require login)
+- Bulk post downloader
+- Single post downloader from url (requires login)
 - Profile picture download
-- Download post from private accounts (require login)
-- Download stories (require login)
+- Download post from private accounts (requires login)
+- Download stories (requires login)
 - Create zip archive with downloaded post
 - Check if the profile is public or private
-- Download saved post (require login)
-- Download liked post (require login)
-- Download highlight (require login)
+- Download saved post (requires login)
+- Download liked post (requires login)
+- Download highlight (requires login)
 - 2FA login
 - Command line usage
 - Automatic conversion from URL to username
@@ -25,9 +25,9 @@ Instagram posts, stories, highlight, saved/liked posts and profile picture downl
 ## Usage
 Execute the instaDow.py file and select the option:
 
-`1. -- Download post from pubblic profile`
+`1. -- Download post from public profile`
 
-`2. -- Donload profile picture`
+`2. -- Download profile picture`
 
 `3. -- Login and download post from private profile`
 
@@ -38,7 +38,7 @@ Execute the instaDow.py file and select the option:
 `6. -- Get profile info from username`
 
 ### Login 
-With logged account tou can acces this options:
+With logged account you can acces these options:
 
 `1. -- Download post from private profile`
 
@@ -74,7 +74,7 @@ For Gui Version:
 pip install tk
 ```
 
-## Prewiew
+## Preview
 ![1](./Screenshot/Screenshot_1.png)
 
 ![2](./Screenshot/Screenshot_2.png)
