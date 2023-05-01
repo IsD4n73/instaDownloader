@@ -61,17 +61,17 @@ With logged account tou can acces this options:
 ## Requirements
 - instaloader
 ```
-pip insall instaloader
+pip install instaloader
 ```
 - argparse
 ```
-pip insall argparse 
+pip install argparse 
 ```
 
 For Gui Version:
 - tkinter
 ```
-pip insall tk
+pip install tk
 ```
 
 ## Prewiew
